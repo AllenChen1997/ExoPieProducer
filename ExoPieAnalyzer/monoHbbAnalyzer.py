@@ -447,9 +447,10 @@ def runbbdm(txtfile):
             #AK4JETS COLLECTION/WORK  FOR RESOLVED CATEGORY
             -----------------------------------------------------------------------------
             '''
-
+            '''
             jet1Index_list = []
             jet2Index_list = []
+
 
             for firstjet in range(ep_THINnJet):
                 for secondjet in range(ep_THINnJet):
@@ -457,15 +458,16 @@ def runbbdm(txtfile):
                         jet1Index_list.append(firstjet)
                         jet2Index_list.append(secondjet)
                     else:continue
-
+            '''
 
             h_mass= -9999.0
 
             #nBjets = 0
-            if nBjets_notiso==2:
-                jet1Index=jet1Index_list[0]
-                jet2Index=jet2Index_list[0]
-                h_mass  = InvMass(ep_THINjetPx[jet1Index]*ep_RegNNCorr[jet1Index], ep_THINjetPy[jet1Index]*ep_RegNNCorr[jet1Index], ep_THINjetPz[jet1Index]*ep_RegNNCorr[jet1Index], ep_THINjetEnergy[jet1Index]*ep_RegNNCorr[jet1Index],ep_THINjetPx[jet2Index]*ep_RegNNCorr[jet2Index], ep_THINjetPy[jet2Index]*ep_RegNNCorr[jet2Index], ep_THINjetPz[jet2Index]*ep_RegNNCorr[jet2Index],ep_THINjetEnergy[jet2Index]*ep_RegNNCorr[jet2Index])
+            if nBjets_notiso>=2:
+                if (nBjets_notiso_index[0]==0 and nBjets_notiso_index[1]==1 and ak4jetpt[0] > 50):
+                    jet1Index=nBjets_notiso_index[0]#jet1Index_list[0]
+                    jet2Index=nBjets_notiso_index[1]#jet2Index_list[0]
+                    h_mass  = InvMass(ep_THINjetPx[jet1Index]*ep_RegNNCorr[jet1Index], ep_THINjetPy[jet1Index]*ep_RegNNCorr[jet1Index], ep_THINjetPz[jet1Index]*ep_RegNNCorr[jet1Index], ep_THINjetEnergy[jet1Index]*ep_RegNNCorr[jet1Index],ep_THINjetPx[jet2Index]*ep_RegNNCorr[jet2Index], ep_THINjetPy[jet2Index]*ep_RegNNCorr[jet2Index], ep_THINjetPz[jet2Index]*ep_RegNNCorr[jet2Index],ep_THINjetEnergy[jet2Index]*ep_RegNNCorr[jet2Index])
                 #print 'jet1Index',jet1Index,'jet2Index',jet2Index
                 #print 'jet1Index_list',jet1Index_list,'jet2Index_list',jet2Index_list
                 #print 'nBjets_notiso_index',nBjets_notiso_index,'jet1Index',jet1Index,'jet2Index',jet2Index
