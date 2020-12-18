@@ -10,6 +10,8 @@ from plotStyle import myCanvas1D, SetCMSAxis, ExtraText, drawenergy1D, SetLegend
 from syst_dic import dic as syst_dict
 import math
 
+ROOT.gROOT.SetBatch(True)
+
 usage = "usage: %prog [options] arg1 arg2"
 parser = optparse.OptionParser(usage)
 
@@ -135,9 +137,9 @@ def sigLeg():
     return sig_leg
 
 
-file1=ROOT.TFile(signal_path+'/Output_crab_EXO-ggToXdXdHToBB_sinp_0p35_tanb_1p0_mXd_10_MH3_600_MH4_150_MH2_600_MHC_600_CP3Tune_13TeV_0000_1.root','READ')
-file2=ROOT.TFile(signal_path+'/Output_crab_EXO-ggToXdXdHToBB_sinp_0p35_tanb_1p0_mXd_10_MH3_1000_MH4_150_MH2_1000_MHC_1000_CP3Tune_13TeV_0000_1.root','READ')
-file3=ROOT.TFile(signal_path+'/Output_crab_EXO-ggToXdXdHToBB_sinp_0p35_tanb_1p0_mXd_10_MH3_1200_MH4_150_MH2_1200_MHC_1200_CP3Tune_13TeV_0000_1.root','RAED')
+file1=ROOT.TFile(signal_path+'/Output_Analysis_EXO-ggToXdXdHToBB_sinp_0p35_tanb_1p0_mXd_10_MH3_600_MH4_150_MH2_600_MHC_600_CP3Tune_13TeV_1.root','READ')
+file2=ROOT.TFile(signal_path+'/Output_Analysis_EXO-ggToXdXdHToBB_sinp_0p35_tanb_1p0_mXd_10_MH3_1000_MH4_150_MH2_1000_MHC_1000_CP3Tune_13TeV_1.root','READ')
+file3=ROOT.TFile(signal_path+'/Output_Analysis_EXO-ggToXdXdHToBB_sinp_0p35_tanb_1p0_mXd_10_MH3_1200_MH4_150_MH2_1200_MHC_1200_CP3Tune_13TeV_1.root','RAED')
 
 if cat=="resolved":
     h_MET1 = getNormHist(file1,'SR','MET',4,lumi,CSList['ma_150_mA_600'],'resolved')
