@@ -418,9 +418,6 @@ def runbbdm(txtfile):
             ep_RegNNCorr=ep_RegNNCorr[ak4jeteta_index]
             ep_THINnJet=len(ep_THINjetPx)
 
-            print "index",ak4jeteta_index
-            print "hadronF",ep_THINjetHadronFlavor
-            
             if applyMassCor:ep_RegNNCorr = ep_RegNNCorr
             else:ep_RegNNCorr = [1.0 for ij in range(ep_THINnJet)]
             ak4jetpt  = [getPt(ep_THINjetPx[ij]*ep_RegNNCorr[ij], ep_THINjetPy[ij]*ep_RegNNCorr[ij]) for ij in range(ep_THINnJet)]
@@ -434,6 +431,7 @@ def runbbdm(txtfile):
 		if ak4jetpt[tmp_index[ij]] > 50.0:isleadJetPt50Present = True
 		if not isleadJetPt50Present:continue
 		nBjets_notiso_index.append(tmp_index[ij])
+
     # try to add the real Bjet ratio 
         realBjet = [ij for ij in range(ep_THINnJet) if (ep_THINjetHadronFlavor[ij] == 5)]
         realBjetRate = len(realBjet) / ep_THINnJet
