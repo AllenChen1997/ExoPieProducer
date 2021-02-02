@@ -434,7 +434,14 @@ def runbbdm(txtfile):
 		if ak4jetpt[tmp_index[ij]] > 50.0:isleadJetPt50Present = True
 		if not isleadJetPt50Present:continue
 		nBjets_notiso_index.append(tmp_index[ij])
-
+    # try to add the real Bjet ratio 
+        realBjet = [ij for ij in range(ep_THINnJet) if (ep_THINjetHadronFlavor[ij] == 5)]
+        realBjetRate = len(realBjet) / ep_THINnJet
+        
+    # try to add the mis-identify ratio for light flavor being identified as bjet
+        realLightjet = [ij for ij in range(tmp_index) if (ep_THINjetHadronFlavor[ij] < 5)]
+        misIdentifyBjetRate = len(realLithtjet) / tmp_index
+        
             nBjets_notiso = len(nBjets_notiso_index) 
 	    if nBjets_notiso==2 and len(tmp_index)>2:
 		print "before", tmp_index,'ak4jetpt',ak4jetpt
@@ -851,7 +858,7 @@ def runbbdm(txtfile):
                                                'weight':weight,'puweight':PUweight,'puweight_up':PUweight_up,'puweight_down':PUweight_down,'lepweight':lepweight,'lepweight_up':lepweight_up,'lepweight_down':lepweight_down,
                                                'METweight':METweight,'METweight_up':METweight_up,'METweight_down':METweight_down,'METRes_up':ep_pfMetUncJetResUp[0],'METRes_down':ep_pfMetUncJetResDown[0],'METEn_up':ep_pfMetUncJetEnUp[0],'METEn_down':ep_pfMetUncJetEnDown[0],
                                                'btagweight':btagweight,'btagweight_up':btagweight_up,'btagweight_down':btagweight_down,'ewkweight':ewkweight,'ewkweight_up':ewkweight_up,'ewkweight_down':ewkweight_down,
-                                               'toppTweight':toppTweight,'toppTweight_up':toppTweight_up,'toppTweight_down':toppTweight_down,'jec':1.0,'jec_up':JEC_up,'jec_down':JEC_down,'prefiringweight':ep_prefiringweight,'prefiringweight_up':ep_prefiringweight_up,'prefiringweight_down':ep_prefiringweight_down
+                                               'toppTweight':toppTweight,'toppTweight_up':toppTweight_up,'toppTweight_down':toppTweight_down,'jec':1.0,'jec_up':JEC_up,'jec_down':JEC_down,'prefiringweight':ep_prefiringweight,'prefiringweight_up':ep_prefiringweight_up,'prefiringweight_down':ep_prefiringweight_down,'realBjetRate':realBjetRate,'misIdentifyBjetRate':misIdentifyBjetRate
                                            },
                                               ignore_index=True)
 

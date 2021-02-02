@@ -227,7 +227,7 @@ df_out_SR_resolved = DataFrame(columns=['run', 'lumi', 'event','pu_nTrueInt','TH
                                        'ismetphiBasedHemEvent1', 'ismetphiBasedHemEvent2',
                                        'weight','puweight','puweight_up','puweight_down','lepweight','lepweight_up','lepweight_down',
 				       'METweight','METweight_up','METweight_down','METRes_up','METRes_down','METEn_up','METEn_down',
-				       'btagweight','btagweight_up','btagweight_down','ewkweight','ewkweight_up','ewkweight_down','toppTweight','toppTweight_up','toppTweight_down','jec','jec_up','jec_down','prefiringweight','prefiringweight_up','prefiringweight_down'])
+				       'btagweight','btagweight_up','btagweight_down','ewkweight','ewkweight_up','ewkweight_down','toppTweight','toppTweight_up','toppTweight_down','jec','jec_up','jec_down','prefiringweight','prefiringweight_up','prefiringweight_down','realBjetRate','misIdentifyBjetRate'])
 
 df_out_SBand_resolved = DataFrame(columns=['run', 'lumi', 'event','pu_nTrueInt', 'THINjetNPV','MET','trkMET','trkMETPhi','METSig',
                                         'Njets_PassID', 'Nbjets_PassID', 'NTauJets', 'NEle', 'NMu', 'nPho','st_TopMatching',
