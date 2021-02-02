@@ -433,12 +433,15 @@ def runbbdm(txtfile):
 		nBjets_notiso_index.append(tmp_index[ij])
 
     # try to add the real Bjet ratio 
-	    realBjet = [ij for ij in range(ep_THINnJet) if (ep_THINjetHadronFlavor[ij] == 5)]
-	    realBjetRate = len(realBjet) / ep_THINnJet
+	    if ep_THINnJet != 0:
+	        realBjet = [ij for ij in range(ep_THINnJet) if (ep_THINjetHadronFlavor[ij] == 5)]
+	        realBjetRate = len(realBjet) / ep_THINnJet
 	    
     # try to add the mis-identify ratio for light flavor being identified as bjet
-	    realLightjet = [ij for ij in tmp_index if (ep_THINjetHadronFlavor[ij] < 5)]
-	    misIdentifyBjetRate = len(realLightjet) / tmp_index
+	    misIdentifyBjetRate = -1
+	    if len(tmp_index) != 0:    
+	        realLightjet = [ij for ij in tmp_index if (ep_THINjetHadronFlavor[ij] < 5)]
+	        misIdentifyBjetRate = len(realLightjet) / len(tmp_index)
         
             nBjets_notiso = len(nBjets_notiso_index) 
 	    if nBjets_notiso==2 and len(tmp_index)>2:
