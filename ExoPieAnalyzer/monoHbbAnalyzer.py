@@ -433,6 +433,7 @@ def runbbdm(txtfile):
 		nBjets_notiso_index.append(tmp_index[ij])
 
     # try to add the real Bjet ratio 
+	    realBjetRate = -1
 	    if ep_THINnJet != 0:
 	        realBjet = [ij for ij in range(ep_THINnJet) if (ep_THINjetHadronFlavor[ij] == 5)]
 	        realBjetRate = len(realBjet) / ep_THINnJet
