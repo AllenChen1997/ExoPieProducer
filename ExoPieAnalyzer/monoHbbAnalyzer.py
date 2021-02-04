@@ -439,10 +439,11 @@ def runbbdm(txtfile):
 	    
     # try to add the mis-identify ratio for light flavor being identified as bjet
 	    misIdentifyBjetRate = -1
-	    if len(tmp_index) != 0:    
-	        realLightjet = [ij for ij in tmp_index if (ep_THINjetHadronFlavor[ij] < 5)]
-	        misIdentifyBjetRate = len(realLightjet) / len(tmp_index)
-        
+            allLightjet = [ij for ij in range(ep_THINnJet) if (ep_THINjetHadronFlavor[ij] < 5)]
+	    if len(allLightjet) != 0:    
+	        realLightjet = [ij for ij in tmp_index if (ep_THINjetHadronFlavor[ij] < 5)] # light flavor jet pass b-tag
+	        misIdentifyBjetRate = len(realLightjet) / len(allLightjet)
+
             nBjets_notiso = len(nBjets_notiso_index) 
 	    if nBjets_notiso==2 and len(tmp_index)>2:
 		print "before", tmp_index,'ak4jetpt',ak4jetpt
