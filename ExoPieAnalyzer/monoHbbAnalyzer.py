@@ -294,7 +294,7 @@ def runbbdm(txtfile):
     h_reg_SBand_boosted_cutFlow.AddBinContent(1,total_events)
     h_reg_SBand_boosted_cutFlow.AddBinContent(2,Entrees)
 
-
+    h_hadronflavor_test = TH1F("h_hadronflavor_test","h_hadronflavor_test",10,0,10)
 
     filename = infile_
     ieve = 0;icount = 0
@@ -431,19 +431,21 @@ def runbbdm(txtfile):
 		if ak4jetpt[tmp_index[ij]] > 50.0:isleadJetPt50Present = True
 		if not isleadJetPt50Present:continue
 		nBjets_notiso_index.append(tmp_index[ij])
-
+        
+            for ij in range(ep_THINnJet):
+                h_hadronflavor_test.Fill(ep_THINjetHadronFlavor[ij])
     # try to add the real Bjet ratio 
 	    realBjetRate = -1
 	    if ep_THINnJet != 0:
 	        realBjet = [ij for ij in range(ep_THINnJet) if (ep_THINjetHadronFlavor[ij] == 5)]
-	        realBjetRate = len(realBjet) / ep_THINnJet
+	        realBjetRate = float(len(realBjet) ) / float(ep_THINnJet)
 	    
     # try to add the mis-identify ratio for light flavor being identified as bjet
 	    misIdentifyBjetRate = -1
             allLightjet = [ij for ij in range(ep_THINnJet) if (ep_THINjetHadronFlavor[ij] < 5)]
 	    if len(allLightjet) != 0:    
 	        realLightjet = [ij for ij in tmp_index if (ep_THINjetHadronFlavor[ij] < 5)] # light flavor jet pass b-tag
-	        misIdentifyBjetRate = len(realLightjet) / len(allLightjet)
+	        misIdentifyBjetRate = float(len(realLightjet) ) / float(len(allLightjet) )
 
             nBjets_notiso = len(nBjets_notiso_index) 
 	    if nBjets_notiso==2 and len(tmp_index)>2:
@@ -1623,6 +1625,8 @@ def runbbdm(txtfile):
 
     h_total_mcweight.Write()
     h_total.Write()
+    
+    h_hadronflavor_test.Write()
     outfile.Write()
 
     print "output written to ", outfilename
