@@ -431,21 +431,6 @@ def runbbdm(txtfile):
 		if ak4jetpt[tmp_index[ij]] > 50.0:isleadJetPt50Present = True
 		if not isleadJetPt50Present:continue
 		nBjets_notiso_index.append(tmp_index[ij])
-        
-            for ij in range(ep_THINnJet):
-                h_hadronflavor_test.Fill(ep_THINjetHadronFlavor[ij])
-    # try to add the real Bjet ratio 
-	    realBjetRate = -1
-	    if ep_THINnJet != 0:
-	        realBjet = [ij for ij in range(ep_THINnJet) if (ep_THINjetHadronFlavor[ij] == 5)]
-	        realBjetRate = float(len(realBjet) ) / float(ep_THINnJet)
-	    
-    # try to add the mis-identify ratio for light flavor being identified as bjet
-	    misIdentifyBjetRate = -1
-            allLightjet = [ij for ij in range(ep_THINnJet) if (ep_THINjetHadronFlavor[ij] < 5)]
-	    if len(allLightjet) != 0:    
-	        realLightjet = [ij for ij in tmp_index if (ep_THINjetHadronFlavor[ij] < 5)] # light flavor jet pass b-tag
-	        misIdentifyBjetRate = float(len(realLightjet) ) / float(len(allLightjet) )
 
             nBjets_notiso = len(nBjets_notiso_index) 
 	    if nBjets_notiso==2 and len(tmp_index)>2:
@@ -851,6 +836,15 @@ def runbbdm(txtfile):
 
 		#print 'SR_R','R_weight',R_weight,'weight',weight
 
+                for ij in range(ep_THINnJet):
+                    h_hadronflavor_test.Fill(ep_THINjetHadronFlavor[ij])
+            # try to add the dijet flavor cases 
+	        realBjetNum = 0  # 0: all light flavor, 1: mix, 2: 2B, 3: ?, 6:??
+                if (ep_THINjetHadronFlavor[jet1Index] == 5): realBjetNum+=1
+                elif (ep_THINjetHadronFlavor[jet1Index] > 5): realBjetNum+=3
+                if (ep_THINjetHadronFlavor[jet2Index] == 5): realBjetNum+=1
+                elif (ep_THINjetHadronFlavor[jet2Index] > 5): realBjetNum+=3
+
                 df_out_SR_resolved = df_out_SR_resolved.append({'run':ep_runId, 'lumi':ep_lumiSection, 'event':ep_eventId,'pu_nTrueInt':ep_pu_nTrueInt,'THINjetNPV':ep_THINjetNPV,
                                                'MET':ep_pfMetCorrPt,'trkMET':ep_pfTRKMETPt,'trkMETPhi':ep_pfTRKMETPhi,'METSig':ep_pfMetCorrSig, 'Njets_PassID':ep_THINnJet,
                                                'Nbjets_PassID':nBjets_notiso, 'NTauJets':ep_HPSTau_n, 'NEle':ep_nEle, 'NMu':ep_nMu, 'nPho':nPho,
@@ -863,7 +857,7 @@ def runbbdm(txtfile):
                                                'weight':weight,'puweight':PUweight,'puweight_up':PUweight_up,'puweight_down':PUweight_down,'lepweight':lepweight,'lepweight_up':lepweight_up,'lepweight_down':lepweight_down,
                                                'METweight':METweight,'METweight_up':METweight_up,'METweight_down':METweight_down,'METRes_up':ep_pfMetUncJetResUp[0],'METRes_down':ep_pfMetUncJetResDown[0],'METEn_up':ep_pfMetUncJetEnUp[0],'METEn_down':ep_pfMetUncJetEnDown[0],
                                                'btagweight':btagweight,'btagweight_up':btagweight_up,'btagweight_down':btagweight_down,'ewkweight':ewkweight,'ewkweight_up':ewkweight_up,'ewkweight_down':ewkweight_down,
-                                               'toppTweight':toppTweight,'toppTweight_up':toppTweight_up,'toppTweight_down':toppTweight_down,'jec':1.0,'jec_up':JEC_up,'jec_down':JEC_down,'prefiringweight':ep_prefiringweight,'prefiringweight_up':ep_prefiringweight_up,'prefiringweight_down':ep_prefiringweight_down,'realBjetRate':realBjetRate,'misIdentifyBjetRate':misIdentifyBjetRate
+                                               'toppTweight':toppTweight,'toppTweight_up':toppTweight_up,'toppTweight_down':toppTweight_down,'jec':1.0,'jec_up':JEC_up,'jec_down':JEC_down,'prefiringweight':ep_prefiringweight,'prefiringweight_up':ep_prefiringweight_up,'prefiringweight_down':ep_prefiringweight_down,'realBjetNum':realBjetNum
                                            },
                                               ignore_index=True)
 
