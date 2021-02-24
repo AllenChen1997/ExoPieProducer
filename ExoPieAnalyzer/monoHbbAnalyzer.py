@@ -295,6 +295,7 @@ def runbbdm(txtfile):
     h_reg_SBand_boosted_cutFlow.AddBinContent(2,Entrees)
 
     h_hadronflavor_test = TH1F("h_hadronflavor_test","h_hadronflavor_test",10,0,10)
+    h_realBjetNum = TH1F("h_realBjetNum","",7,0,7) # 0: all light flavor, 1: mix, 2: 2B, >3: there is at least 1 jet flavor > 5
 
     filename = infile_
     ieve = 0;icount = 0
@@ -844,6 +845,7 @@ def runbbdm(txtfile):
                 elif (ep_THINjetHadronFlavor[jet1Index] > 5): realBjetNum+=3
                 if (ep_THINjetHadronFlavor[jet2Index] == 5): realBjetNum+=1
                 elif (ep_THINjetHadronFlavor[jet2Index] > 5): realBjetNum+=3
+                h_realBjetNum.Fill(realBjetNum)
 
                 df_out_SR_resolved = df_out_SR_resolved.append({'run':ep_runId, 'lumi':ep_lumiSection, 'event':ep_eventId,'pu_nTrueInt':ep_pu_nTrueInt,'THINjetNPV':ep_THINjetNPV,
                                                'MET':ep_pfMetCorrPt,'trkMET':ep_pfTRKMETPt,'trkMETPhi':ep_pfTRKMETPhi,'METSig':ep_pfMetCorrSig, 'Njets_PassID':ep_THINnJet,
@@ -857,7 +859,7 @@ def runbbdm(txtfile):
                                                'weight':weight,'puweight':PUweight,'puweight_up':PUweight_up,'puweight_down':PUweight_down,'lepweight':lepweight,'lepweight_up':lepweight_up,'lepweight_down':lepweight_down,
                                                'METweight':METweight,'METweight_up':METweight_up,'METweight_down':METweight_down,'METRes_up':ep_pfMetUncJetResUp[0],'METRes_down':ep_pfMetUncJetResDown[0],'METEn_up':ep_pfMetUncJetEnUp[0],'METEn_down':ep_pfMetUncJetEnDown[0],
                                                'btagweight':btagweight,'btagweight_up':btagweight_up,'btagweight_down':btagweight_down,'ewkweight':ewkweight,'ewkweight_up':ewkweight_up,'ewkweight_down':ewkweight_down,
-                                               'toppTweight':toppTweight,'toppTweight_up':toppTweight_up,'toppTweight_down':toppTweight_down,'jec':1.0,'jec_up':JEC_up,'jec_down':JEC_down,'prefiringweight':ep_prefiringweight,'prefiringweight_up':ep_prefiringweight_up,'prefiringweight_down':ep_prefiringweight_down,'realBjetNum':realBjetNum
+                                               'toppTweight':toppTweight,'toppTweight_up':toppTweight_up,'toppTweight_down':toppTweight_down,'jec':1.0,'jec_up':JEC_up,'jec_down':JEC_down,'prefiringweight':ep_prefiringweight,'prefiringweight_up':ep_prefiringweight_up,'prefiringweight_down':ep_prefiringweight_down
                                            },
                                               ignore_index=True)
 
@@ -1621,6 +1623,7 @@ def runbbdm(txtfile):
     h_total.Write()
     
     h_hadronflavor_test.Write()
+    h_realBjetNum.Write()
     outfile.Write()
 
     print "output written to ", outfilename
